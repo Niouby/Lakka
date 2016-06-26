@@ -89,7 +89,7 @@
     UVESAFB_SUPPORT="yes"
 
   # Displayserver to use (x11 / no)
-    if [ "$NVIDIAX11" == "yes" ]; then
+    if [ "$X11SERVER" == "yes" ]; then
       DISPLAYSERVER="x11"
     else
       DISPLAYSERVER="no"
