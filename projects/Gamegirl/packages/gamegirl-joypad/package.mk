@@ -18,19 +18,31 @@
 #  http://www.gnu.org/copyleft/gpl.html
 ################################################################################
 
-PKG_NAME="OdroidXU3"
-PKG_VERSION=""
+PKG_NAME="gamegirl-joypad"
+PKG_VERSION="1bbcbc7"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
-PKG_SITE="https://github.com/lakkatv/Lakka"
-PKG_URL=""
-PKG_DEPENDS_TARGET="retroarch scummvm dosbox mgba prosystem o2em 81 fuse-libretro gw-libretro beetle-sgx genesis-plus-gx mupen64plus lutro gpsp ppsspp 2048 beetle-vb beetle-wswan beetle-ngp pcsx_rearmed vecx snes9x-next dinothawr prboom beetle-pce handy picodrive nxengine nestopia gambatte stella fba libretro-ffmpeg"
+PKG_LICENSE="GPLv3"
+PKG_SITE="https://github.com/lakkatv/gamegirl-joypad"
+PKG_URL="$LAKKA_MIRROR/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
-PKG_SECTION="virtual"
-PKG_SHORTDESC="Lakka metapackage for OdroidXU3"
-PKG_LONGDESC=""
+PKG_SECTION="tools"
+PKG_SHORTDESC="Uinput joypad for Gamegirl"
+PKG_LONGDESC="Uinput joypad for Gamegirl"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
+make_target() {
+  make gamegirl-joypad LDFLAGS="$LDFLAGS -lwiringPi"
+}
+
+makeinstall_target() {
+  mkdir -p $INSTALL/usr/bin/
+  cp gamegirl-joypad $INSTALL/usr/bin/
+}
+
+post_install() {
+  enable_service gamegirl-joypad.service
+}
